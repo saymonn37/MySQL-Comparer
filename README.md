@@ -1,21 +1,28 @@
-# MySQL Comparer
+# 🔍 MySQL Comparer
 
 ## 📌 Overview
 
-**Database Comparer** is a GUI-based Python application that allows users to track and compare changes in a MySQL database. It captures the state of all tables at a given point in time, compares them to the latest database state, and highlights differences in data. The tool also provides the ability to export comparison results to a CSV file for further analysis.
+**MySQL Comparer** is a powerful GUI application that allows users to track and compare changes in MySQL databases. It captures the state of database tables at specific points in time, compares them to the current state, and highlights all differences. This tool is ideal for database administrators, developers, and QA specialists who need to monitor and validate database changes during development, testing, or migration processes.
 
 ## 🎯 Features
 
-- ✅ **Capture Initial Database State** – Fetches and stores the state of all tables in the connected database.
-- ✅ **Compare Database Changes** – Identifies added, removed, and modified records and fields.
-- ✅ **User-Friendly Interface** – Built with `Tkinter`, providing an intuitive experience.
-- ✅ **CSV Export** – Exports differences into a `.csv` file for documentation or further analysis.
-- ✅ **Multi-threading Support** – Prevents UI freezing by executing database operations in separate threads.
-- ✅ **Configurable Database Connection** – Uses `config.ini` to manage MySQL connection details.
+- ✅ **Complete Database Comparison** – Tracks additions, modifications, and deletions across all tables
+- ✅ **High Performance** – Optimized for large databases with batched processing and connection pooling
+- ✅ **Fast Mode** – Optional in-memory processing for faster comparisons on powerful systems
+- ✅ **Table Selection** – Ability to focus comparison on specific tables of interest
+- ✅ **Advanced Filtering** – Filter results by table, column, or value changes
+- ✅ **Color-Coded Results** – Visual differentiation between added, modified, and deleted data
+- ✅ **Pagination** – Efficiently navigate through large result sets
+- ✅ **Export Options** – Save comparison results to CSV or copy to clipboard
+- ✅ **Configurable Settings** – Customize database connections and display preferences
+
+## 🖥️ Screenshot
+
+![13-03-2025T17-43-52](https://github.com/user-attachments/assets/26fd2bdc-1088-4afd-a75d-8ce059d6a022)
 
 ## 🛠️ Requirements
 
-Before running the script, ensure you have the following installed:
+Before running the application, ensure you have the following installed:
 
 - Python 3.x
 - `mysql-connector-python`
@@ -45,68 +52,90 @@ pip install mysql-connector-python
    user = your_mysql_user
    password = your_mysql_password
    database = your_database_name
+   pool_size = 5
    ```
+   
+   Note: The application will create a default config file on first run if none exists.
 
 3. Run the script:
 
    ```bash
-   python3 database_comparer.py
+   python3 mysql_comparer.py
    ```
 
 ## 🚀 Usage
 
-1. **Fetch State** – Click the **"Fetch State"** button to capture the initial database state.
-2. **Modify Database Data** – Make changes to the database through SQL or an external application.
-3. **Compare States** – Click **"Compare States"** to analyze differences.
-4. **Export to CSV** – Save comparison results by clicking **"Export to CSV"**.
-5. **Clear All** – Reset the state tracking.
+### Basic Operations
+
+1. **Fetch State** – Click the "Fetch State" button to capture the initial database state
+2. **Make Changes** – Modify your database through your normal tools and applications
+3. **Compare States** – Click "Compare States" to analyze differences between the initial and current state
+4. **Export Results** – Save the comparison results as CSV or copy to clipboard
+5. **Clear All** – Reset the application to start a new comparison
+
+### Advanced Features
+
+- **Table Selection** – Use Options → Select Tables to focus on specific tables
+- **Fast Mode** – Enable for faster processing (requires more RAM)
+- **Filtering** – Use the filter box to search for specific changes
+- **Pagination** – Navigate through results using the pagination controls
+- **Stop Button** – Cancel long-running operations
 
 ## 🖥️ GUI Overview
 
 The application consists of:
 
-- **Control Panel**: Buttons for fetching state, comparing changes, exporting results, and clearing data.
-- **Comparison Table**: Displays detected changes with the following columns:
-  - **Table Name** – The affected database table.
-  - **ID** – The primary key or first column value.
-  - **Column** – The column number.
-  - **Column Name** – Name of the modified column.
-  - **Old Value** – Previous value before modification.
-  - **New Value** – Updated value.
+- **Control Panel** – Buttons for fetching state, comparing, exporting, and clearing data
+- **Filter Bar** – Tools to search and filter comparison results
+- **Results Table** – Displays detected changes with color-coding:
+  - **Green** – Added records
+  - **Orange** – Modified records
+  - **Red** – Deleted records
+- **Status Bar** – Shows operation progress and current status
 
-## 📜 Example Output
+## 📊 Example Output
 
-If a row is modified in a table:
+When a database change is detected, the following information is displayed:
 
 | Table  | ID | Column | Column Name | Old Value | New Value |
 |--------|----|--------|-------------|-----------|-----------|
 | users  | 1  | 2      | username    | JohnDoe   | John_Doe  |
 | orders | 5  | 4      | status      | pending   | shipped   |
 
-## 🛑 Error Handling
+## ⚙️ Configuration Options
 
-- If MySQL credentials are incorrect, an error message will be displayed.
-- If no database state is captured before comparison, an alert is shown.
-- If an error occurs during CSV export, the user will be notified.
+Access additional settings through the Options → Settings menu:
+
+- **Database Settings** – Configure connection parameters
+- **Display Settings** – Customize page size and result highlighting colors
+
+## 🚨 Error Handling
+
+- If MySQL credentials are incorrect, an error message will be displayed
+- Connection issues are logged to an error.log file
+- Long-running operations can be canceled using the STOP button
 
 ## 🏗️ Future Improvements
 
-- Add support for other database types (PostgreSQL, SQLite).
-- Enhance UI for a better user experience.
-- Implement logging for troubleshooting.
+- Support for other database systems (PostgreSQL, SQLite, Oracle)
+- Differential backups based on comparison results
+- Schema change detection and comparison
+- SQL script generation for synchronizing databases
+- Dark mode for reduced eye strain
 
 ## 🔧 Troubleshooting
 
 | Issue | Solution |
-|------|---------|
-| GUI not opening | Ensure Tkinter is installed. Run `python3 -m tkinter` to check. |
-| Database connection error | Verify credentials in `config.ini`. |
-| No changes detected | Ensure modifications were made to the database. |
+|-------|----------|
+| Connection errors | Verify credentials in `config.ini` and ensure the database server is running |
+| Application seems slow | Consider enabling Fast Mode for performance or select only necessary tables |
+| High memory usage | Disable Fast Mode if experiencing memory issues on large databases |
+| No changes detected | Ensure you've properly fetched the initial state and that changes were actually made |
 
 ## 📝 License
 
 This project is open-source under the **MIT License**.
 
-## 👥 Author
+## 👤 Author
 
 Developed by [Saymonn](https://github.com/saymonn37). Contributions and feedback are welcome!
